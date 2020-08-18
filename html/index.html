@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    
+    <title>Pulsar Star Detection</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/checkout/">
+
+    <!-- Bootstrap core CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" crossorigin="anonymous">
+
+<link rel="stylesheet" type="text/css" href="basic.min.css">
+<link rel="stylesheet" type="text/css" href="dropzone.min.css">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      body {
+        background-color: #1c1c1c;
+      }
+
+      .imptext {
+        color: #ffffff;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+      .dropzone {
+          border: 2px dashed #28a745;
+          border-radius: 5px;
+          background: #1c1c1c;
+      }
+
+      .dropzone {
+          min-height: 150px;
+          padding: 54px 54px;
+      }
+
+      .dz-default.dz-message {
+        color: white;
+      }
+
+      .alert-success {
+          color: #f8f9fa;
+          background-color: #2d2d2d;
+          border-color: #c3e6cb;
+      }
+    </style>
+  
+  
+  </head>
+  <body class="">
+    <div class="container">
+  <div class="py-5 text-center">
+    <img src="static/2.gif" class="img-fluid">
+    <h2 class="imptext">Pulsar Star Detection</h2>
+    <p class="lead imptext">A simple random forest was trained with scikit-learn framework on the HTRU2 dataset.</p>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 order-md-1">
+      <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+          <a class="nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Single Row Prediction</a>
+          <a class="nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Bulk Row Prediction</a>
+        </div>
+      </nav>
+      <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+          
+            <br>
+            <div class="alert alert-success" role="alert" id="orders">
+            </div>
+            <div class="mb-3">
+              <label for="address" class="imptext">Mean of the integrated profile</label>
+              <input type="text" class="form-control" id="mean_int_pf" placeholder="5.8125 to 192.6171875" required>
+            </div>
+
+            <div class="mb-3">
+              <label for="address" class="imptext">Standard deviation of the integrated profile.</label>
+              <input type="text" class="form-control" id="std_pf" placeholder="24.77204176 to 98.77891067" required>
+            </div>
+
+            <div class="mb-3">
+              <label for="address" class="imptext">Excess kurtosis of the integrated profile.</label>
+              <input type="text" class="form-control" id="ex_kurt_pf" placeholder="-1.876011181 to 8.069522046" required>
+            </div>
+
+            <div class="mb-3">
+              <label for="address" class="imptext">Skewness of the integrated profile.</label>
+              <input type="text" class="form-control" id="skew_pf" placeholder="-1.791885981 to 68.10162173" required>
+            </div>
+
+            <div class="mb-3">
+              <label for="address2" class="imptext">Mean of the DM-SNR curve.</label>
+              <input type="text" class="form-control" id="mean_dm" placeholder="0.213210702 to 223.3921405">
+            </div>
+
+            <div class="mb-3">
+              <label for="address2" class="imptext">Standard deviation of the DM-SNR curve.</label>
+              <input type="text" class="form-control" id="std_dm" placeholder="7.370432165 to 110.6422106">
+            </div>
+
+            <div class="mb-3">
+              <label for="address2" class="imptext">Excess kurtosis of the DM-SNR curve.</label>
+              <input type="text" class="form-control" id="kurt_dm" placeholder="-3.139269611 to 34.53984419">
+            </div>
+
+            <div class="mb-3">
+              <label for="address2" class="imptext">Skewness of the DM-SNR curve.</label>
+              <input type="text" class="form-control" id="skew_dm" placeholder="-1.976975603 to 1191.000837">
+            </div>
+          
+            <hr class="mb-4">
+            <button class="btn btn-success btn-lg btn-block" type="submit" id="add-order">Predict</button>
+
+          
+        </div>
+        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+          <br>
+          <div class="alert alert-success" role="alert">
+            Make sure your dataset contains :
+            <ul>
+              <li>No header rows.</li>
+              <li>Only contain 8 columns.</li>
+              <li>No Null, NaN or Undefined values.</li>
+            </ul>  
+          </div>
+          <br>
+          <form action="upload.php" class="dropzone" id="mydropzone" method="post"></form><br>
+          <table class="table table-sm table-dark">
+            <thead>
+              <tr>
+                <th scope="col">mean_int_pf</th>
+                <th scope="col">std_pf</th>
+                <th scope="col">ex_kurt_pf</th>
+                <th scope="col">skew_pf</th>
+                <th scope="col">mean_dm</th>
+                <th scope="col">std_dm</th>
+                <th scope="col">kurt_dm</th>
+                <th scope="col">skew_dm</th>
+                <th scope="col">Predicted</th>
+              </tr>
+            </thead>
+            <tbody id="records_table">
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="my-5 pt-5 text-muted text-center text-small">
+    <p class="mb-1">&copy; 2020 <br>Check Github Repository</p>
+    <ul class="list-inline">
+      <li class="list-inline-item"><a href="https://www.github.com/erepr/pulsar">Github</a></li>
+    </ul>
+  </footer>
+</div>
+
+<script src="https://d3js.org/d3.v5.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lodash@4.17.19/lodash.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" crossorigin="anonymous"></script>
+<script type="text/javascript" src="dropzone.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" crossorigin="anonymous"></script>
+<script type="text/javascript" src="main.js"></script>
+<script type="text/javascript">
+  Dropzone.options.mydropzone = {
+    acceptedFiles: ".csv",
+    init: function() {
+        this.on("complete", function(file) { 
+          var root = 'file-upload/';
+          var filename = root.concat(file.name);
+          d3.text(filename).then(function(data) {
+            if(_.isNil(data) == true || _.isNaN(data) == true) {
+              console.log("true");
+            } else {
+              var result = "mean_int_pf,std_pf,ex_kurt_pf,skew_pf,mean_dm,std_dm,kurt_dm,skew_dm\n" + data;
+              var csv_data = d3.csvParse(result);
+              csv_data.forEach(function(d) {
+                d.mean_int_pf = +d.mean_int_pf;
+                d.std_pf = +d.std_pf;
+                d.ex_kurt_pf = +d.ex_kurt_pf;
+                d.skew_pf = +d.skew_pf;
+                d.mean_dm = +d.mean_dm;
+                d.std_dm = +d.std_dm;
+                d.kurt_dm = +d.kurt_dm;
+                d.skew_dm = +d.skew_dm;
+
+                $.ajax({
+                  type: 'POST',
+                  url: 'http://ec2-3-129-241-47.us-east-2.compute.amazonaws.com:8888',
+                  contentType:"application/json",
+                  data: JSON.stringify(d),
+                  success: function(response) {
+                    function sayit(response) {
+                      if (response == '1') {
+                        return "✔️ Is a Pulsar Star";
+                      } else {
+                        return "⚠️ Not a Pulsar Star";
+                      }
+                    }
+                    $('#records_table').append('<tr><td>' + d.mean_int_pf + '</td><td>' + d.std_pf + '</td><td>' + d.ex_kurt_pf + '</td><td>' + d.skew_pf + '</td><td>' + d.mean_dm + '</td><td>' + d.std_dm + '</td><td>' + d.kurt_dm + '</td><td>' + d.skew_dm + '</td><td class="table-success" style="color: #000000;">' + sayit(response) +'</td></tr>');
+                  }
+                })
+              });
+            }
+          });
+        });
+      }
+  };
+</script>
+</body>
+</html>
