@@ -16,3 +16,5 @@ To delete EKS Cluster run command
 
   * `cortex cluster down`
   * `cortex env delete`
+
+Refer to `main.ipynb` for python notebooks
