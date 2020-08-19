@@ -1,0 +1,949 @@
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.5.6">
+    
+    
+      
+        <title>AWS EKS - Pulsar Classifier</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.63b94e9e.min.css">
+      
+        <link rel="stylesheet" href="../assets/stylesheets/palette.7f672a1f.min.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="">
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7C&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="black" data-md-color-accent="deep-purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#aws-eks" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href=".." title="Pulsar Classifier" class="md-header-nav__button md-logo" aria-label="Pulsar Classifier">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            Pulsar Classifier
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              AWS EKS
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/erepr/pulsar-classifier/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Pulsar Classifier" class="md-nav__button md-logo" aria-label="Pulsar Classifier">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    Pulsar Classifier
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/erepr/pulsar-classifier/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href=".." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../introduction/" title="Introduction" class="md-nav__link">
+      Introduction
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../workflow/" title="Workflow" class="md-nav__link">
+      Workflow
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../ingestion/" title="Data Ingestion" class="md-nav__link">
+      Data Ingestion
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../profile/" title="Data Profiling" class="md-nav__link">
+      Data Profiling
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../eda/" title="Exploratory Data Analysis" class="md-nav__link">
+      Exploratory Data Analysis
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../preprocessing/" title="Data Preprocessing" class="md-nav__link">
+      Data Preprocessing
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../create/" title="Model Creation" class="md-nav__link">
+      Model Creation
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../tune/" title="Model Tuning" class="md-nav__link">
+      Model Tuning
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../calibrate/" title="Model Calibration" class="md-nav__link">
+      Model Calibration
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../model/" title="Model Evaluation" class="md-nav__link">
+      Model Evaluation
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../predict/" title="Model Prediction" class="md-nav__link">
+      Model Prediction
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../final/" title="Finalize Model" class="md-nav__link">
+      Finalize Model
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../save/" title="Save Model" class="md-nav__link">
+      Save Model
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-15" type="checkbox" id="nav-15" checked>
+    
+    <label class="md-nav__link" for="nav-15">
+      Deployment & Monitoring
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42z"/></svg>
+      </span>
+    </label>
+    <nav class="md-nav" aria-label="Deployment & Monitoring" data-md-level="1">
+      <label class="md-nav__title" for="nav-15">
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+        </span>
+        Deployment & Monitoring
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../pre/" title="Prerequisite" class="md-nav__link">
+      Prerequisite
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../folder/" title="Folder Structure" class="md-nav__link">
+      Folder Structure
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../local/" title="Deploy Locally" class="md-nav__link">
+      Deploy Locally
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../docker/" title="Dockerize Locally" class="md-nav__link">
+      Dockerize Locally
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        AWS EKS
+        <span class="md-nav__icon md-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9h14V7H3v2m0 4h14v-2H3v2m0 4h14v-2H3v2m16 0h2v-2h-2v2m0-10v2h2V7h-2m0 6h2v-2h-2v2z"/></svg>
+        </span>
+      </label>
+    
+    <a href="./" title="AWS EKS" class="md-nav__link md-nav__link--active">
+      AWS EKS
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#aws-eks-deployment" class="md-nav__link">
+    AWS EKS Deployment
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-project-files" class="md-nav__link">
+    Creating Project files
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cluster-configuration" class="md-nav__link">
+    Cluster configuration
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#create-cluster" class="md-nav__link">
+    Create Cluster
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deploy-cluster" class="md-nav__link">
+    Deploy Cluster
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#get-apis-endpoint" class="md-nav__link">
+    Get API's endpoint
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configure-prediction-monitoring" class="md-nav__link">
+    Configure prediction monitoring
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#watch-api-past-prediction" class="md-nav__link">
+    Watch API Past Prediction
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aws-cloudwatch-monitoring" class="md-nav__link">
+    AWS CloudWatch Monitoring
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spin-down-a-cluster" class="md-nav__link">
+    Spin down a cluster
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#delete-cluster-environment" class="md-nav__link">
+    Delete Cluster Environment
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#delete-cluster-from-aws" class="md-nav__link">
+    Delete Cluster from AWS
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../ui/" title="User Interface" class="md-nav__link">
+      User Interface
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../conclusion/" title="Findings & Conclusion" class="md-nav__link">
+      Findings & Conclusion
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#aws-eks-deployment" class="md-nav__link">
+    AWS EKS Deployment
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-project-files" class="md-nav__link">
+    Creating Project files
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cluster-configuration" class="md-nav__link">
+    Cluster configuration
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#create-cluster" class="md-nav__link">
+    Create Cluster
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deploy-cluster" class="md-nav__link">
+    Deploy Cluster
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#get-apis-endpoint" class="md-nav__link">
+    Get API's endpoint
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configure-prediction-monitoring" class="md-nav__link">
+    Configure prediction monitoring
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#watch-api-past-prediction" class="md-nav__link">
+    Watch API Past Prediction
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aws-cloudwatch-monitoring" class="md-nav__link">
+    AWS CloudWatch Monitoring
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#spin-down-a-cluster" class="md-nav__link">
+    Spin down a cluster
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#delete-cluster-environment" class="md-nav__link">
+    Delete Cluster Environment
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#delete-cluster-from-aws" class="md-nav__link">
+    Delete Cluster from AWS
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/erepr/pulsar-classifier/edit/master/docs/eks.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  
+                
+                
+                <h1 id="aws-eks">AWS EKS</h1>
+<h2 id="aws-eks-deployment">AWS EKS Deployment</h2>
+<div class="admonition warning">
+<p class="admonition-title">This may incur charge</p>
+<p>This may incur charge as it creates <code>m3.large</code> cluster which is outside free tier scheme.</p>
+</div>
+<h2 id="creating-project-files">Creating Project files</h2>
+<div class="highlight"><pre><span></span><code>./pulsar-classifier/
+├── cortex.yaml
+├── predictor.py
+└── requirements.txt
+└── cluster.yaml
+</code></pre></div>
+
+<h2 id="cluster-configuration">Cluster configuration</h2>
+<p>Create a <code>cluster.yaml</code> file with exact configuration below. Just replace <code>aws_access_key_id</code> and <code>aws_secret_access_key</code> with your credentials.</p>
+<p>This would create cluster with following configuration.</p>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> AWS region <code>us-east-2</code></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> An S3 Bucket for metadata storage </li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> <code>m3.large</code> EC2 instance</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> SSD Disk Storage <code>30 GB</code></li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> CloudWatch log group name <code>pulsar</code></li>
+</ul>
+<div class="highlight"><pre><span></span><code># cluster.yaml
+
+# AWS credentials (if not specified, ~/.aws/credentials will be checked) (can be overridden by $AWS_ACCESS_KEY_ID and $AWS_SECRET_ACCESS_KEY)
+aws_access_key_id: ***
+aws_secret_access_key: ***
+
+# optional AWS credentials for the operator which may be used to restrict its AWS access (defaults to the AWS credentials set above)
+cortex_aws_access_key_id: ***
+cortex_aws_secret_access_key: ***
+
+# EKS cluster name for cortex (default: cortex)
+cluster_name: pulsar
+
+# AWS region
+region: us-east-2
+
+# S3 bucket (default: &lt;cluster_name&gt;-&lt;RANDOM_ID&gt;)
+# note: your cortex cluster uses this bucket for metadata storage, and it should not be accessed directly (a separate bucket should be used for your models)
+bucket: # cortex-&lt;RANDOM_ID&gt;
+
+# list of availability zones for your region (default: 3 random availability zones from the specified region)
+availability_zones: # e.g. [us-east-1a, us-east-1b, us-east-1c]
+
+# instance type
+instance_type: m3.large
+
+# minimum number of instances (must be &gt;= 0)
+min_instances: 1
+
+# maximum number of instances (must be &gt;= 1)
+max_instances: 1
+
+# disk storage size per instance (GB) (default: 50)
+instance_volume_size: 30
+
+# instance volume type [gp2, io1, st1, sc1] (default: gp2)
+instance_volume_type: gp2
+
+# instance volume iops (only applicable to io1 storage type) (default: 3000)
+# instance_volume_iops: 3000
+
+# whether the subnets used for EC2 instances should be public or private (default: &quot;public&quot;)
+# if &quot;public&quot;, instances will be assigned public IP addresses; if &quot;private&quot;, instances won&#39;t have public IPs and a NAT gateway will be created to allow outgoing network requests
+# see https://docs.cortex.dev/v/0.18/miscellaneous/security#private-cluster for more information
+subnet_visibility: public  # must be &quot;public&quot; or &quot;private&quot;
+
+# whether to include a NAT gateway with the cluster (a NAT gateway is necessary when using private subnets)
+# default value is &quot;none&quot; if subnet_visibility is set to &quot;public&quot;; &quot;single&quot; if subnet_visibility is &quot;private&quot;
+nat_gateway: none  # must be &quot;none&quot;, &quot;single&quot;, or &quot;highly_available&quot; (highly_available means one NAT gateway per availability zone)
+
+# whether the API load balancer should be internet-facing or internal (default: &quot;internet-facing&quot;)
+# note: if using &quot;internal&quot;, APIs will still be accessible via the public API Gateway endpoint unless you also disable API Gateway in your API&#39;s configuration (if you do that, you must configure VPC Peering to connect to your APIs)
+# see https://docs.cortex.dev/v/0.18/miscellaneous/security#private-cluster for more information
+api_load_balancer_scheme: internet-facing  # must be &quot;internet-facing&quot; or &quot;internal&quot;
+
+# whether the operator load balancer should be internet-facing or internal (default: &quot;internet-facing&quot;)
+# note: if using &quot;internal&quot;, you must configure VPC Peering to connect your CLI to your cluster operator (https://docs.cortex.dev/v/0.18/guides/vpc-peering)
+# see https://docs.cortex.dev/v/0.18/miscellaneous/security#private-cluster for more information
+operator_load_balancer_scheme: internet-facing  # must be &quot;internet-facing&quot; or &quot;internal&quot;
+
+# CloudWatch log group for cortex (default: &lt;cluster_name&gt;)
+log_group: pulsar
+
+# additional tags to assign to aws resources for labelling and cost allocation (by default, all resources will be tagged with cortex.dev/cluster-name=&lt;cluster_name&gt;)
+tags:  # &lt;string&gt;: &lt;string&gt; map of key/value pairs
+
+# whether to use spot instances in the cluster (default: false)
+# see https://docs.cortex.dev/v/0.18/cluster-management/spot-instances for additional details on spot configuration
+spot: false
+
+# see https://docs.cortex.dev/v/0.18/guides/custom-domain for instructions on how to set up a custom domain
+ssl_certificate_arn:
+</code></pre></div>
+
+<h2 id="create-cluster">Create Cluster</h2>
+<p>This creates a Cortex cluster in your AWS account, and will take approximately 15 minutes.</p>
+<div class="highlight"><pre><span></span><code>cortex cluster up --config cluster.yaml
+</code></pre></div>
+
+<h2 id="deploy-cluster">Deploy Cluster</h2>
+<div class="highlight"><pre><span></span><code>cortex deploy --env aws
+</code></pre></div>
+
+<h2 id="get-apis-endpoint">Get API's endpoint</h2>
+<div class="highlight"><pre><span></span><code>cortex get pulsar-classifier --env aws
+</code></pre></div>
+
+<h2 id="configure-prediction-monitoring">Configure prediction monitoring</h2>
+<div class="highlight"><pre><span></span><code># cortex.yaml
+
+- name: pulsar-classifier
+  predictor:
+    type: python
+    path: predictor.py
+    config:
+      bucket: pulsar
+      key: pulsar-classifier/model.pkl
+  monitoring:
+    model_type: classification
+</code></pre></div>
+
+<h2 id="watch-api-past-prediction">Watch API Past Prediction</h2>
+<div class="highlight"><pre><span></span><code>cortex get --env aws pulsar-classifier --watch
+</code></pre></div>
+
+<h2 id="aws-cloudwatch-monitoring">AWS CloudWatch Monitoring</h2>
+<p>Visit your <code>CloudWatch</code> resource and click on <code>pulsar</code></p>
+<p><img alt="AWS CloudWatch Monitoring" src="/assets/11.png" /></p>
+<h2 id="spin-down-a-cluster">Spin down a cluster</h2>
+<div class="highlight"><pre><span></span><code>cortex cluster down 
+</code></pre></div>
+
+<h2 id="delete-cluster-environment">Delete Cluster Environment</h2>
+<div class="highlight"><pre><span></span><code>cortex env delete
+</code></pre></div>
+
+<h2 id="delete-cluster-from-aws">Delete Cluster from AWS</h2>
+<div class="highlight"><pre><span></span><code>cortex delete pulsar-classifier --env aws
+</code></pre></div>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../docker/" title="Dockerize Locally" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Dockerize Locally
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../ui/" title="User Interface" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                User Interface
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+  <div class="md-footer-social">
+    
+      
+      
+      <a href="https://twitter.com/squidfunk" target="_blank" rel="noopener" title="squidfunk on Twitter" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+      </a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../assets/javascripts/vendor.d1f5a259.min.js"></script>
+      <script src="../assets/javascripts/bundle.d5fec882.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      
+      <script>
+        app = initialize({
+          base: "..",
+          features: [],
+          search: Object.assign({
+            worker: "../assets/javascripts/worker/search.fae956e7.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>
