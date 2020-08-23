@@ -15,7 +15,7 @@
     
     
       
-        <title>Data Preprocessing - Pulsar Classifier</title>
+        <title>Model Tracking - Pulsar Classifier</title>
       
     
     
@@ -58,7 +58,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#data-preprocessing" class="md-skip">
+        <a href="#mlflow-logging" class="md-skip">
           Skip to content
         </a>
       
@@ -86,7 +86,7 @@
           </span>
           <span class="md-header-nav__topic md-ellipsis">
             
-              Data Preprocessing
+              Model Tracking
             
           </span>
         </div>
@@ -256,6 +256,18 @@
       
       
 
+
+  <li class="md-nav__item">
+    <a href="../preprocessing/" title="Data Preprocessing" class="md-nav__link">
+      Data Preprocessing
+    </a>
+  </li>
+
+    
+      
+      
+      
+
   
 
 
@@ -267,14 +279,14 @@
     
     
       <label class="md-nav__link md-nav__link--active" for="__toc">
-        Data Preprocessing
+        Model Tracking
         <span class="md-nav__icon md-icon">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 9h14V7H3v2m0 4h14v-2H3v2m0 4h14v-2H3v2m16 0h2v-2h-2v2m0-10v2h2V7h-2m0 6h2v-2h-2v2z"/></svg>
         </span>
       </label>
     
-    <a href="./" title="Data Preprocessing" class="md-nav__link md-nav__link--active">
-      Data Preprocessing
+    <a href="./" title="Model Tracking" class="md-nav__link md-nav__link--active">
+      Model Tracking
     </a>
     
       
@@ -293,43 +305,9 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#install-pycaret" class="md-nav__link">
-    Install Pycaret
+  <a href="#mlflow-tracking" class="md-nav__link">
+    MLflow Tracking
   </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#importing-classification-module" class="md-nav__link">
-    Importing Classification Module
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#setup-preprocessing-pipeline" class="md-nav__link">
-    Setup Preprocessing Pipeline
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#comparing-models" class="md-nav__link">
-    Comparing Models
-  </a>
-  
-    <nav class="md-nav" aria-label="Comparing Models">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#models-considered" class="md-nav__link">
-    Models Considered
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -337,18 +315,6 @@
   
 </nav>
     
-  </li>
-
-    
-      
-      
-      
-
-
-  <li class="md-nav__item">
-    <a href="../mlflow/" title="Model Tracking" class="md-nav__link">
-      Model Tracking
-    </a>
   </li>
 
     
@@ -588,43 +554,9 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#install-pycaret" class="md-nav__link">
-    Install Pycaret
+  <a href="#mlflow-tracking" class="md-nav__link">
+    MLflow Tracking
   </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#importing-classification-module" class="md-nav__link">
-    Importing Classification Module
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#setup-preprocessing-pipeline" class="md-nav__link">
-    Setup Preprocessing Pipeline
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#comparing-models" class="md-nav__link">
-    Comparing Models
-  </a>
-  
-    <nav class="md-nav" aria-label="Comparing Models">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#models-considered" class="md-nav__link">
-    Models Considered
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -640,7 +572,7 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/erepr/pulsar-classifier/edit/master/docs/preprocessing.md" title="Edit this page" class="md-content__button md-icon">
+                  <a href="https://github.com/erepr/pulsar-classifier/edit/master/docs/mlflow.md" title="Edit this page" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
                   </a>
                 
@@ -648,54 +580,13 @@
                   
                 
                 
-                <h1 id="data-preprocessing">Data Preprocessing</h1>
-<h2 id="install-pycaret">Install Pycaret</h2>
-<div class="highlight"><pre><span></span><code><span class="n">pip</span> <span class="n">install</span> <span class="n">pycaret</span><span class="o">==</span><span class="mf">2.0</span>
+                <h1 id="mlflow-logging">MLFlow Logging</h1>
+<h2 id="mlflow-tracking">MLflow Tracking</h2>
+<p>To start logging your experiments MLflow Tracking component as a backend API and UI for logging parameters, code versions, metrics, and output files when running your machine learning code and for later visualizing the results.</p>
+<div class="highlight"><pre><span></span><code>mlflow ui
 </code></pre></div>
 
-<h2 id="importing-classification-module">Importing Classification Module</h2>
-<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">pycaret.classification</span> <span class="kn">import</span> <span class="o">*</span>
-</code></pre></div>
-
-<h2 id="setup-preprocessing-pipeline">Setup Preprocessing Pipeline</h2>
-<div class="admonition quote">
-<p class="admonition-title">Synthetic Minority Oversampling Technique</p>
-<p>An improvement on duplicating examples from the minority class is to synthesize new examples from the minority class. This is a type of data augmentation for tabular data and can be very effective.</p>
-<p>SMOTE works by selecting examples that are close in the feature space, drawing a line between the examples in the feature space and drawing a new sample at a point along that line.</p>
-<p>SMOTE first selects a minority class instance a at random and finds its k nearest minority class neighbors. The synthetic instance is then created by choosing one of the k nearest neighbors b at random and connecting a and b to form a line segment in the feature space. The synthetic instances are generated as a convex combination of the two chosen instances a and b.</p>
-</div>
-<div class="admonition quote">
-<p class="admonition-title">Feature Selection</p>
-<p>Feature Importance is a process used to select features in the dataset that contributes the most in predicting the target variable. Working with selected features instead of all the features reduces the risk of over-fitting, improves accuracy, and decreases the training time.It uses a combination of several supervised feature selection techniques to select the subset of features that are most important for modeling. </p>
-<p>A subset of features are selected using a combination of various permutation importance techniques including Random Forest, Adaboost and Linear correlation with target variable. </p>
-</div>
-<div class="highlight"><pre><span></span><code><span class="n">setup</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">df</span><span class="p">,</span> <span class="n">target</span> <span class="o">=</span> <span class="s1">&#39;class&#39;</span><span class="p">,</span> <span class="n">feature_selection</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">fix_imbalance</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">log_experiment</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">experiment_name</span> <span class="o">=</span> <span class="s1">&#39;Feature Selection/Importance &amp; SMOTE&#39;</span><span class="p">)</span>
-</code></pre></div>
-
-<div class="admonition quote">
-<p class="admonition-title">Output</p>
-<p><img alt="setup" src="../assets/22.png" /></p>
-</div>
-<h2 id="comparing-models">Comparing Models</h2>
-<h3 id="models-considered">Models Considered</h3>
-<div class="codehilite"><pre><span></span><code><span class="err">ada - Adaboost</span>
-<span class="err">gbc - Gradient Boosting Classifier</span>
-<span class="err">xgboost - Extreme Gradient Boosting</span>
-<span class="err">lightgbm - Light Gradient Boosting</span>
-<span class="err">rf - Random Forest</span>
-<span class="err">dt - Decision Tree</span>
-<span class="err">et - Extra Trees Classifier</span>
-<span class="err">catboost</span>
-</code></pre></div>
-
-
-<div class="highlight"><pre><span></span><code><span class="n">compare_models</span><span class="p">(</span><span class="n">whitelist</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ada&#39;</span><span class="p">,</span> <span class="s1">&#39;gbc&#39;</span><span class="p">,</span> <span class="s1">&#39;xgboost&#39;</span><span class="p">,</span> <span class="s1">&#39;lightgbm&#39;</span><span class="p">,</span> <span class="s1">&#39;rf&#39;</span><span class="p">,</span> <span class="s1">&#39;dt&#39;</span><span class="p">,</span> <span class="s1">&#39;et&#39;</span><span class="p">,</span> <span class="s1">&#39;catboost&#39;</span><span class="p">])</span>
-</code></pre></div>
-
-<div class="admonition quote">
-<p class="admonition-title">Output</p>
-<p><img alt="Compare Models" src="../assets/21.png" /></p>
-</div>
+<p><img alt="mlflow" src="../assets/36.png" /></p>
                 
               
               
@@ -714,7 +605,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
         
-          <a href="../eda/" title="Exploratory Data Analysis" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../preprocessing/" title="Data Preprocessing" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-footer-nav__button md-icon">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
             </div>
@@ -723,19 +614,19 @@
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Exploratory Data Analysis
+                Data Preprocessing
               </div>
             </div>
           </a>
         
         
-          <a href="../mlflow/" title="Model Tracking" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../create/" title="Model Creation" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-footer-nav__title">
               <div class="md-ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Model Tracking
+                Model Creation
               </div>
             </div>
             <div class="md-footer-nav__button md-icon">
